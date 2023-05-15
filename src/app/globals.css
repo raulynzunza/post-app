@@ -2,26 +2,67 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+body{
+    background-color: #bdbdbd;
+    color: #5a5a5a;
+}
+.form {
+    background-color: #87878750;
+    backdrop-filter: blur(1.7rem);
+    position: relative;
+    z-index: 10;
+    padding: 3rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+
+.figure {      
+    position: absolute;
+    z-index: 5;
+    animation: flotante 60s infinite ease-in-out;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.figure2 {      
+    position: absolute;
+    z-index: 5;
+    animation: flotante2 60s infinite ease-in-out;
+}
+
+.card {
+    background-color: #87878750;
+    backdrop-filter: blur(1.3rem);
+}
+
+@keyframes flotante {
+    0% {
+        transform: translateX(0) translateX(0);
+    }    
+    25% {
+        transform: translateX(500px) translateY(-300px);
+    }
+    50% {
+        transform: translateX(500px) translateY(100px);
+    }    
+    75% {
+        transform: translateX(100px) translateY(-200px);
+    }
+    100% {
+        transform: translateX(0) translateY(0);
+    }    
+}
+@keyframes flotante2 {
+    0% {
+        transform: translateX(540px) translateY(0);
+    }    
+    25% {
+        transform: translateX(-100px) translateY(200px);
+    }
+    50% {
+        transform: translateX(-300px) translateY(50px);
+    }    
+    75% {
+        transform: translateX(100px) translateY(-200px);
+    }
+    100% {
+        transform: translateX(540px) translateY(0);
+    }    
 }

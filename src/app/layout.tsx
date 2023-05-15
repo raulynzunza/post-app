@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import './globals.css'
 import { Inter } from 'next/font/google'
 
@@ -15,7 +16,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className} suppressHydrationWarning={true} >
+        <Image src="/float.svg" alt='float' width={500} height={500} className='figure'/>
+        <Image src="/float2.svg" alt='float2' width={500} height={500} className='figure2'/>
+        {children}
+      </body>
     </html>
   )
 }
