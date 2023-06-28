@@ -18,7 +18,7 @@ export default function Home() {
     localStorage.removeItem("user");
     localStorage.removeItem("id");
   }, [])
-  
+
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -27,26 +27,22 @@ export default function Home() {
     await axios
       .get(process.env.NEXT_PUBLIC_API_URL + "/users/" + email + "/" + password)
       .then((res) => {
-        if(res.data.length === 0) {
+        console.log(res.data.account.name)
+        if (!res.data.message) {
           setErrorFlag(true);
           setFlag(false);
           return;
         }
-        localStorage.setItem("user", res.data[0].name);
-        localStorage.setItem("id", res.data[0].id);        
-        if (res.data.length > 0) {
-          setErrorFlag(false);
-          setFlag(false);
-          router.push("/menu");
-        } else {
-          setFlag(false);
-          setErrorFlag(true);
-        }
+        localStorage.setItem("user", res.data.account[0].name);
+        localStorage.setItem("id", res.data.account[0].id);
+        setErrorFlag(false);
+        setFlag(false);
+        router.push("/menu");
       });
   };
 
   return (
-    <div>      
+    <div>
       <form
         className="flex flex-col gap-2 w-[50%] mx-auto mt-[20vh] form rounded"
         onSubmit={handleSubmit}

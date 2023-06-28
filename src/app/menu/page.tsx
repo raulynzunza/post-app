@@ -31,10 +31,10 @@ const page = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { title, post }: any = formState;
-    if(title===undefined || title === '') {
+    if (title === undefined || title === '') {
       return
     }
-    if(post===undefined || post === '') {
+    if (post === undefined || post === '') {
       return
     }
     await axios
@@ -49,15 +49,15 @@ const page = () => {
   };
 
   const handlePost = () => {
-    if(formFlag)
-    setFormFlag(false);
+    if (formFlag)
+      setFormFlag(false);
     else
-    setFormFlag(true);
+      setFormFlag(true);
   }
 
   return (
     <div>
-      <main className="p-7 sticky top-0 z-20 right-0 left-0 bg-[#68666682] backdrop-blur-lg">
+      <main className="p-7 sticky top-0 z-20 right-0 left-0 bg-[#333333f2] backdrop-blur-lg">
         <div className="flex flex-col gap-4 items-center mb-3">
           <h1 className="text-2xl font-bold text-center">Make a post 🫡</h1>
           <button onClick={handlePost} className="bg-purple-600 p-2 rounded text-white hover:bg-purple-700 transition-colors">
@@ -66,7 +66,7 @@ const page = () => {
         </div>
         {
           formFlag
-           &&(
+          && (
             <form
               onSubmit={handleSubmit}
               className="flex flex-col gap-4 items-center w-fill mx-auto my-auto"
@@ -88,7 +88,7 @@ const page = () => {
                 Make the post 👌
               </button>
             </form>
-           )          
+          )
         }
       </main>
       <ul className="relative z-10">

@@ -4,14 +4,22 @@ import { useForm } from "../hooks/useForm";
 import axios from "axios";
 import { Alert } from "@mui/material";
 import { useState } from "react";
+import { uploadFile } from '../firebase/config'
 
 const page = () => {
   const { formState, onInputChange } = useForm();
+  const [file, setFile] = useState<File | null>(null);
   const [registerFlag, setRegisterFlag] = useState(false);
   const [errorFlag, setErrorFlag] = useState(false);
 
+  const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
+    setFile(e.target.files[0])
+  }
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const avatar = await uploadFile(file);
     const { name, email, password }: any = formState;
 
     await axios
@@ -19,10 +27,11 @@ const page = () => {
         name,
         email,
         password,
+        avatar
       })
       .then((resp) => {
         setRegisterFlag(true);
-        setErrorFlag(false);        
+        setErrorFlag(false);
       })
       .catch((err) => {
         console.log(err)
@@ -33,7 +42,7 @@ const page = () => {
 
   return (
     <main>
-      
+
       <form
         className="flex flex-col gap-2 w-[50%] mx-auto mt-[20vh] form rounded"
         onSubmit={handleSubmit}
@@ -65,6 +74,12 @@ const page = () => {
           onChange={onInputChange}
           required
         />
+        <input
+          type="file"
+          name="avatar"
+          onChange={onFileChange}
+          required
+        />
         <button
           type="submit"
           className="p-2 rounded-md bg-purple-600 text-white  hover:bg-purple-700"
@@ -73,12 +88,12 @@ const page = () => {
         </button>
         <div className="w-[50%] mx-auto mt-5">
           {
-            registerFlag 
-            ?
-            <Alert severity="success" variant="filled">User registered successfully</Alert>          
-            :
-            errorFlag && <Alert severity="error" variant="filled">Something went wrong when register user</Alert>
-          }        
+            registerFlag
+              ?
+              <Alert severity="success" variant="filled">User registered successfully</Alert>
+              :
+              errorFlag && <Alert severity="error" variant="filled">Something went wrong when register user</Alert>
+          }
         </div>
         <p className="text-center mt-3">
           Already have an account?{" "}
